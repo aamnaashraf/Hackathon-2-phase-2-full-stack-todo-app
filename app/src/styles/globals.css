@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Remove the conflicting CSS variables and body background since we're using Tailwind classes */
+/* Light mode defaults */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+/* Dark mode overrides (when .dark class is added) */
+.dark {
+  --foreground-rgb: 243, 244, 246;
+  --background-start-rgb: 30, 27, 75;  /* indigo-950 (keep start deep) */
+  --background-end-rgb: 88, 28, 135;   /* purple-950 → slightly lighter & pinkish */
+}
+
+/* Ensure the body fills the entire viewport and removes any transparent areas */
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    );
+  transition: background 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Prevent white corners when using backdrop-blur by ensuring the entire document has the proper background */
+html {
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    );
+}
+
+/* Custom scrollbar - light mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #1f2937; /* gray-800 */
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563; /* gray-600 */
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280; /* gray-500 */
+}
+
+/* Enhanced dark mode overrides for better theme consistency */
+.dark {
+  color-scheme: dark;
+}
+
+/* Ensure backdrop elements don't show white corners */
+.backdrop-blur-md {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Force dark mode elements to properly inherit theme */
+.dark .bg-white {
+  @apply bg-gray-900 !important;
+}
+
+.dark .bg-gray-50 {
+  @apply bg-gray-800 !important;
+}
+
+.dark .bg-gray-100 {
+  @apply bg-gray-700 !important;
+}
+
+.dark .bg-gray-200 {
+  @apply bg-gray-600 !important;
+}
+
+.dark .text-gray-900 {
+  @apply text-white !important;
+}
+
+.dark .text-gray-800 {
+  @apply text-gray-100 !important;
+}
+
+.dark .text-gray-700 {
+  @apply text-gray-200 !important;
+}
+
+.dark .border-gray-200 {
+  @apply border-gray-700 !important;
+}
+
+.dark .border-gray-300 {
+  @apply border-gray-600 !important;
+}
+
+/* Ensure consistent dark mode for all common UI elements */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: rgba(17, 24, 39, 0.8) !important; /* bg-gray-900 with transparency */
+  color: white !important;
+  border-color: rgba(156, 163, 175, 0.3) !important; /* border-gray-400 with transparency */
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: rgba(209, 213, 219, 0.7) !important; /* text-gray-300 with transparency */
+}

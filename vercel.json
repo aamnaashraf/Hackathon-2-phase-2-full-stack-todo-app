@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "name": "todo-app",
+  "builds": [
+    {
+      "src": "app/next.config.js",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "backend/src/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/src/main.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "app/$1"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "SECRET_KEY": "@secret_key",
+    "ALGORITHM": "HS256",
+    "ACCESS_TOKEN_EXPIRE_MINUTES": "30"
+  }
+}
