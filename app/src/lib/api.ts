@@ -13,14 +13,13 @@ const getAuthToken = () => {
 const makeRequest = async (endpoint: string, options: RequestInit = {}) => {
   const token = getAuthToken()
 
-  const headers = {
-    'Content-Type': 'application/json',
-    ...options.headers,
-  }
+ const headers = new Headers({
+  'Content-Type': 'application/json',
+});
 
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`
-  }
+if (token) {
+  headers.set('Authorization', `Bearer ${token}`);
+}
 
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
