@@ -1,5 +1,5 @@
 // API service for backend communication
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8000')
 
 // Helper function to get the auth token from localStorage
 const getAuthToken = () => {
@@ -13,12 +13,12 @@ const getAuthToken = () => {
 const makeRequest = async (endpoint: string, options: RequestInit = {}) => {
   const token = getAuthToken()
 
- const headers: Record<string, string> = {
-  "Content-Type": "application/json",
-}
+ const headers = new Headers({
+  'Content-Type': 'application/json',
+});
 
 if (token) {
-  headers["Authorization"] = `Bearer ${token}`
+  headers.set('Authorization', `Bearer ${token}`);
 }
 
 
