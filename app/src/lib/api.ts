@@ -16,11 +16,18 @@ const makeRequest = async (endpoint: string, options: RequestInit = {}) => {
  const headers = new Headers({
   'Content-Type': 'application/json',
 });
+<<<<<<< HEAD
 
 if (token) {
   headers.set('Authorization', `Bearer ${token}`);
 }
 
+=======
+
+if (token) {
+  headers.set('Authorization', `Bearer ${token}`);
+}
+>>>>>>> 98ffb53d6a9311e6df714bd9d45693911f36e5fa
 
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
