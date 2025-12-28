@@ -1,5 +1,5 @@
 // API service for backend communication
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8000')
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || ''
 
 // Helper function to get the auth token from localStorage
 const getAuthToken = () => {
