@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel, create_engine, Session, select
 from dotenv import load_dotenv
 from typing import Generator
+from sqlalchemy.pool import NullPool
 
 # Load environment variables
 load_dotenv()
@@ -16,7 +17,7 @@ if not DATABASE_URL:
     # For Vercel deployment, provide a fallback or raise an error
     DATABASE_URL = os.getenv("VERCEL_POSTGRES_URL", "sqlite:///./test.db")  # fallback for testing
 
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=True,poolclass=NullPool)
 
 def get_session() -> Generator[Session, None, None]:
     with Session(engine) as session:
@@ -121,19 +122,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 # Create the FastAPI app
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Create database tables on startup
-    SQLModel.metadata.create_all(bind=engine)
-    yield
-    # Cleanup on shutdown if needed
 
-app = FastAPI(
-    title="Todo Web Application API",
-    description="API for the Full-Stack Secure Todo Web Application",
-    version="1.0.0",
-    lifespan=lifespan
-)
+
+app = FastAPI()
 
 # Add CORS middleware
 app.add_middleware(
