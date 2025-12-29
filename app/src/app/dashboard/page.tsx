@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/src/lib/auth'
-import TodoList from '@/src/components/todos/TodoList'
-import { getTodos } from '@/src/lib/api'
+import { useAuth } from '@/lib/auth'
+import TodoList from '@/components/todos/TodoList'
+import { getTodos } from '@/lib/api'
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
+
 
 // Define the Todo interface to match the API response
 interface Todo {
